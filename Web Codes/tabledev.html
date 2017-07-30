@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Table View</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="css/sb-admin.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.html">Welcome</a>
+            </div>
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> User XYZ <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-gear"></i> Settings</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#"><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li class="active">
+                        <a href="index.html"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                    </li>
+                    <li>
+                        <a href="charts.html"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>
+                    </li>
+                    <li>
+                        <a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-table"></i> Tables <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="demo" class="collapse">
+                            <li>
+                                <a href="tabledev.html">Inventory Items</a>
+                            </li>
+                            <li>
+                                <a href="tablemod.html">Scanner Modules</a>
+                            </li>
+                        </ul>
+					 </li>
+					  <li>
+                        <a href="adduser.html"><i class="fa fa-fw fa-user-plus"></i> Add User</a>
+                    </li>
+                     <li>
+                             <a href="additem.html"><i class="fa fa-fw fa-plug"></i>Add Item</a>
+                     </li>
+                     </ul>
+					
+                  
+                </ul>
+            </div>    <!-- /.navbar-collapse -->
+        </nav>
+
+        <div id="page-wrapper">
+
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                           <i class="fa fa-table"></i> Tables
+                        </h1>
+                        <ol class="breadcrumb">
+                            <li>
+                                <i class="fa fa-dashboard"></i>  <a href="index.html">Dashboard</a>
+                            </li>
+                            <li class="active">
+                                <i class="fa fa-table"></i> <a href="tablemod.html">Tables</a>
+                            </li>
+							<li>
+								<i class="fa fa-fax"></i> Items
+							</li>
+                        </ol>
+                    </div>
+                </div>
+                <!-- /.row -->
+
+                <!-- /.row -->
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h2>Inventory Items</h2>
+                        <div class="table-responsive" id="table_div">   
+                        </div>
+                    </div>
+                    
+                </div>
+                <!-- /.row -->
+
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="js/jquery.js"></script>
+	<script src="https://use.fontawesome.com/e56364b7b9.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+	<script>
+	google.charts.load('current', {'packages':['table']});
+	google.charts.setOnLoadCallback(drawChart1);
+	
+	 function drawChart1() {
+								$.getJSON('dbinfo.php?x=0', function(json) {
+								var dataTable1 = new google.visualization.DataTable();
+								dataTable1.addColumn('string', 'Name');
+								dataTable1.addColumn('string', 'Department');
+								dataTable1.addColumn('string', 'Category');
+								dataTable1.addColumn('string','Reg_time');
+								
+								 for(i=0;i <json.length; i++)									//Feed data using loop
+										{ 
+												status = JSON.stringify(json[i]);
+													var searchstat = status;
+													var n1 = searchstat.search("ame\":\"");
+													var n2 = searchstat.search("t\":\"");
+													var n3 = searchstat.search("y\":\"");
+													var n4 = searchstat.search("ime\":\"");
+													var n5 = searchstat.lastIndexOf("}");
+													
+													
+													var status1 = status.slice(n1+6,n2-6);
+													var status2 = status.slice(n2+4,n3-16);
+													var status3 = status.slice(n3+4,n4-8);
+													var status4 = status.slice(n4+6,n5-1);
+												dataTable1.addRow([status1,status2,status3,status4]);
+										}
+			 
+				var table = new google.visualization.Table(document.getElementById('table_div'));
+
+				table.draw(dataTable1, {showRowNumber: true, width: '100%', height: '100%'});
+			});	
+	}
+	</script>	
+</body>
+
+</html>

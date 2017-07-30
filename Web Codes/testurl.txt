@@ -1,0 +1,1 @@
+http://8e7fb376.ngrok.io/afproject/dbinfo.php?x=0&uid=AD CA 12 3E F1&name=scanner&ser=CAT C&dep=planning
